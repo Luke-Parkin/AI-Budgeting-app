@@ -109,7 +109,7 @@ transactions = []
 def transactions_from_csv(path: str) -> list[Transaction]:
     with open(path, "r") as csvfile:
         reader = csv.reader(csvfile, delimiter=",")
-        next(reader)
+        next(reader)  # skip header
         for row in reader:
             transactions.append(Transaction(row, ai_api))
     return transactions
@@ -158,7 +158,6 @@ class Statistics:
             prompt += f"{category.name}: £{total:.2f}, "
         prompt += "\n Category totals: "
         prompt += "Using that list of transactions containing a short description then value, write a report for the customer intelligently identifying common trends in spending and then suggesting ways to save money."
-        print(prompt)
         return self.api.completion(prompt)
 
 
